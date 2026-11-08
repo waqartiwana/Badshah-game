@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="ur">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Badshah Wazir Sapahi Chor</title>
+<style>
+:root{--felt:#14382b;--felt2:#0e2a20;--slip:#f6f1e4;--ink:#1d1b16;--red:#b3261e;--gold:#e8b94a;--mute:#9fb8ac}
+*{box-sizing:border-box}
+body{margin:0;min-height:100vh;background:var(--felt);color:#fff;font-family:system-ui,-apple-system,"Segoe UI",sans-serif;padding:14px 14px 40px;max-width:520px;margin-inline:auto}
+h1{font-family:Georgia,serif;font-size:26px;margin:6px 0 4px}
+h2{font-family:Georgia,serif;font-size:20px;margin:0 0 8px}
+p{margin:6px 0;line-height:1.45;color:var(--mute)}
+input,select{width:100%;padding:13px;border-radius:10px;border:2px solid #2d5a49;background:var(--felt2);color:#fff;font-size:17px;margin:6px 0}
+button{width:100%;padding:14px;border:0;border-radius:10px;background:var(--gold);color:var(--ink);font-size:17px;font-weight:700;margin:8px 0;cursor:pointer}
+button.alt{background:transparent;color:#fff;border:2px solid #2d5a49;font-weight:500;font-size:15px}
+button:disabled{opacity:.4}
+.box{background:var(--felt2);border-radius:14px;padding:14px;margin:12px 0}
+.top{display:flex;justify-content:space-between;font-size:14px;color:var(--mute)}
+.card{perspective:800px;height:210px;margin:14px 6px}
+.in{position:relative;width:100%;height:100%;transition:transform .8s;transform-style:preserve-3d}
+.show .in{transform:rotateY(180deg)}
+.face{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;border-radius:8px;display:flex;flex-direction:column;align-items:center;justify-content:center;border:2px dashed #b9ae8f;background:var(--slip);color:var(--ink)}
+.front{background:repeating-linear-gradient(45deg,#e9dfc2,#e9dfc2 8px,#f6f1e4 8px,#f6f1e4 16px);font-size:70px;font-family:Georgia,serif;color:#8a7d55}
+.back{transform:rotateY(180deg)}
+.big{font-size:52px}.nm{font-family:Georgia,serif;font-size:30px;font-weight:700}.pt{font-family:Georgia,serif;font-size:34px;color:var(--red);font-weight:700}
+.row{display:flex;justify-content:space-between;padding:9px 0;border-bottom:1px solid #24493b}
+.row:last-child{border:0}
+.rv{animation:pop .5s both;animation-delay:calc(var(--i)*.35s)}
+@keyframes pop{from{opacity:0;transform:scale(.7) translateY(10px)}to{opacity:1;transform:none}}
+.call{font-family:Georgia,serif;font-size:26px;text-align:center;color:var(--gold);padding:12px 0}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.me{color:var(--gold)}.ok{color:#7ee2a8}.bad{color:#ff8b80}
+.timer{width:96px;height:96px;border-radius:50%;border:5px solid var(--gold);margin:10px auto;display:flex;align-items:center;justify-content:center;font:700 44px Georgia,serif}
+.timer.hot{border-color:#ff5a4d;color:#ff8b80;animation:pulse .5s infinite alternate}
+@keyframes pulse{to{transform:scale(1.1)}}
+.bar{height:8px;background:var(--felt2);border-radius:4px;overflow:hidden}
+.bar i{display:block;height:100%;width:100%;background:var(--gold)}
+table{width:100%;border-collapse:collapse;font-size:14px}
+th,td{padding:6px 4px;text-align:center;border-bottom:1px solid #24493b}
+.cf{position:fixed;top:-14px;width:9px;height:14px;z-index:9;animation:fall linear forwards}
+@keyframes fall{to{transform:translateY(105vh) rotate(720deg)}}
+#splash{position:fixed;inset:0;z-index:99;background:radial-gradient(circle at 50% 40%,#1d5a43,#0a1f17);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;transition:opacity .6s}
+#splash.out{opacity:0;pointer-events:none}
+#splash .ic{font-size:34px;letter-spacing:10px;animation:float 1.6s ease-in-out infinite alternate}
+#splash h1{font-size:48px;margin:16px 0 6px;background:linear-gradient(90deg,#b8862b,#ffe9a3,#b8862b);background-size:200% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:rise .9s both,shine 2s linear infinite}
+#splash p{font-size:19px;color:#e9dfc2;animation:fadein 1s .9s both}
+#splash small{position:absolute;bottom:40px;color:var(--mute);animation:fadein 1s 1.5s both}
+@keyframes rise{from{opacity:0;transform:translateY(30px) scale(.8)}to{opacity:1;transform:none}}
+@keyframes shine{to{background-position:200% 0}}
+@keyframes float{to{transform:translateY(-12px)}}
+@keyframes fadein{from{opacity:0}to{opacity:1}}
+</style>
+</head>
+<body>
+<div id="splash"><div class="ic">👑🧠📜💂🥷</div><h1>Tiwana Games</h1><p>Your Desi Childhood Games 😉</p><small>skip karne ke liye tap karo</small></div>
+<script>(function(){var s=document.getElementById("splash");function h(){s.classList.add("out");setTimeout(function(){s.remove()},700)}setTimeout(h,3000);s.onclick=h})()</script>
+<div id="app"></div>
+<script type="module">
+import {initializeApp} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+import {getFirestore,doc,onSnapshot,setDoc,updateDoc,runTransaction} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyCPJhqTGW4KajDkFUmvYXpklVKkV4gEOrg",
+  authDomain: "badshah-ka-wazir-kon.firebaseapp.com",
+  projectId: "badshah-ka-wazir-kon",
+  storageBucket: "badshah-ka-wazir-kon.firebasestorage.app",
+  messagingSenderId: "144426600510",
+  appId: "1:144426600510:web:6a9efcbcaeb1a1b7b1a96f"
+};
+
+const db = getFirestore(initializeApp(firebaseConfig));
+const R = {
+  badshah:{n:"Badshah",p:1000,e:"👑"},
+  wazir:{n:"Wazir",p:600,e:"🧠"},
+  musheer:{n:"Musheer",p:400,e:"📜"},
+  sapahi:{n:"Sapahi",p:200,e:"💂"},
+  chor:{n:"Chor",p:0,e:"🥷"}
+};
+const $ = document.getElementById("app");
+const esc = s => String(s).replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+let myId = localStorage.getItem("bw_id");
+if(!myId){ myId = Math.random().toString(36).slice(2,10); localStorage.setItem("bw_id", myId); }
+let myName = localStorage.getItem("bw_name") || "";
+let code = (new URLSearchParams(location.search).get("room") || "").toUpperCase();
+let newRec=false, unsub=null, data=null, shown="", lastKey="", lastTick=-1, resolving=false;
+const ref = c => doc(db, "rooms", c);
+const bestScore = () => { try{ return +localStorage.getItem("bw_best")||0 }catch(e){ return 0 } };
+const bestLine = () => bestScore() ? `<p>🏅 Aapka ab tak ka highest score: <b class="me">${bestScore()}</b></p>` : `<p>🏅 Abhi koi score nahi. Pehli game khelo aur record banao!</p>`;
+
+/* ---- sound, vibration, confetti ---- */
+let ac;
+function beep(f=600,d=.15,t="sine",v=.15){try{ac=ac||new (window.AudioContext||window.webkitAudioContext)();const o=ac.createOscillator(),g=ac.createGain();o.type=t;o.frequency.value=f;g.gain.value=v;o.connect(g);g.connect(ac.destination);o.start();g.gain.exponentialRampToValueAtTime(.001,ac.currentTime+d);o.stop(ac.currentTime+d)}catch(e){}}
+const tune = a => a.forEach((f,i)=>setTimeout(()=>beep(f,.25,"triangle"),i*180));
+function confetti(){for(let i=0;i<70;i++){const e=document.createElement("i");e.className="cf";e.style.cssText=`left:${Math.random()*100}vw;background:hsl(${Math.random()*360},90%,60%);animation-delay:${Math.random()*1.5}s;animation-duration:${2+Math.random()*2}s`;document.body.appendChild(e);setTimeout(()=>e.remove(),5000)}}
+function sfx(ph){
+  if(ph==="ask") tune([440,660]);
+  else if(ph==="guess") beep(500,.2);
+  else if(ph==="reveal") tune(data.correct?[523,659,784]:[392,330,262]);
+  else if(ph==="final"){ tune([523,659,784,1047]); confetti(); }
+}
+
+/* ---- home / join ---- */
+function home(){
+  $.innerHTML = `<h1>👑 Badshah Wazir Sapahi Chor</h1>
+  <p>4 ya 5 dost, parchian aur maza. Apna naam likho aur khelo.</p>${bestLine()}
+  <div class="box">
+    <input id="nm" placeholder="Aapka naam" value="${esc(myName)}" maxlength="14">
+    ${code ? `<p>Room: <b>${esc(code)}</b></p><button onclick="joinRoom()">Room mein shamil ho jao</button>`
+    : `<select id="rounds"><option value="10">10 games</option><option value="12">12 games</option><option value="15">15 games</option></select>
+       <button onclick="createRoom()">Naya room banao</button>`}
+  </div>`;
+}
+function readName(){
+  const v = document.getElementById("nm").value.trim();
+  if(!v){ alert("Pehle apna naam likho"); return null; }
+  myName = v; localStorage.setItem("bw_name", v); return v;
+}
+window.createRoom = async () => {
+  const name = readName(); if(!name) return;
+  const total = +document.getElementById("rounds").value;
+  code = Array.from({length:4}, () => "ABCDEFGHJKLMNPQRSTUVWXYZ"[Math.floor(Math.random()*24)]).join("");
+  try{
+    await setDoc(ref(code), {players:[{id:myId,name,total:0}], phase:"lobby", round:0, totalRounds:total, hostId:myId, mode:4, roles:{}, guessId:null, roundPoints:null, correct:null, timedOut:false, deadline:0, history:[]});
+  }catch(e){ alert("Room nahi ban saka. Firebase config aur Firestore check karo.\n"+e.message); return; }
+  history.replaceState(null,"","?room="+code); listen();
+};
+window.joinRoom = async () => {
+  const name = readName(); if(!name) return;
+  try{
+    await runTransaction(db, async tx => {
+      const s = await tx.get(ref(code));
+      if(!s.exists()) throw new Error("Ye room nahi mila");
+      const d = s.data();
+      if(d.players.some(p => p.id===myId)) return;
+      if(d.phase!=="lobby") throw new Error("Game shuru ho chuki hai");
+      if(d.players.length>=5) throw new Error("Room full hai (5 players)");
+      tx.update(ref(code), {players:[...d.players, {id:myId,name,total:0}]});
+    });
+  }catch(e){ alert(e.message); return; }
+  listen();
+};
+function listen(){
+  if(unsub) unsub();
+  unsub = onSnapshot(ref(code), s => { if(s.exists()){ data = s.data(); render(); } });
+}
+
+/* ---- game actions ---- */
+const upd = o => updateDoc(ref(code), o);
+const nameOf = id => (data.players.find(p => p.id===id)||{name:"?"}).name;
+const idOf = (role,d=data) => Object.keys(d.roles).find(k => d.roles[k]===role);
+const gRoleOf = d => d.mode===5 ? "musheer" : "wazir";
+
+window.startRound = () => {
+  const n = data.players.length;
+  const roles = (n===5 ? ["badshah","wazir","musheer","sapahi","chor"] : ["badshah","wazir","sapahi","chor"]).sort(() => Math.random()-.5);
+  const map = {}; data.players.forEach((p,i) => map[p.id] = roles[i]);
+  upd({mode:n===5?5:4, roles:map, phase:"ask", round:data.round+1, guessId:null, roundPoints:null, correct:null, timedOut:false});
+};
+window.askWazir = () => upd({phase:"call", deadline:Date.now()+15000, autoAns:false});
+let advancing = false;
+async function advance(from, auto){
+  if(advancing) return; advancing = true;
+  try{
+    await runTransaction(db, async tx => {
+      const s = await tx.get(ref(code)); const d = s.data();
+      if(d.phase!==from) return;
+      if(from==="call" && d.mode===5) tx.update(ref(code), {phase:"call2", deadline:Date.now()+15000, autoAns:!!auto});
+      else tx.update(ref(code), {phase:"guess", deadline:Date.now()+30000, autoAns:!!auto});
+    });
+  }catch(e){}
+  advancing = false;
+}
+window.jiHuzoor = () => advance(data.phase, false);
+window.guess = id => resolve(id);
+async function resolve(gid){
+  if(resolving) return; resolving = true;
+  try{
+    await runTransaction(db, async tx => {
+      const s = await tx.get(ref(code)); const d = s.data();
+      if(d.phase!=="guess") return;
+      const gR = gRoleOf(d), correct = !!gid && gid===idOf("chor",d), pts = {};
+      d.players.forEach(p => {
+        let r = d.roles[p.id];
+        if(!correct){ if(r===gR) r="chor"; else if(r==="chor") r=gR; }
+        pts[p.id] = R[r].p;
+      });
+      tx.update(ref(code), {players:d.players.map(p => ({...p,total:p.total+pts[p.id]})), guessId:gid||null, roundPoints:pts, correct, timedOut:!gid, history:[...(d.history||[]),{r:d.round,pts}], phase:"reveal"});
+    });
+  }catch(e){}
+  resolving = false;
+}
+window.nextRound = () => data.round>=data.totalRounds ? upd({phase:"final"}) : startRound();
+window.playAgain = () => upd({players:data.players.map(p => ({...p,total:0})), phase:"lobby", round:0, roles:{}, history:[]});
+window.takeHost = () => upd({hostId:myId});
+window.shareWA = () => {
+  const link = location.origin + location.pathname + "?room=" + code;
+  window.open("https://wa.me/?text=" + encodeURIComponent("Badshah Wazir Sapahi Chor khelo! Room "+code+": "+link));
+};
+
+/* ---- timer ---- */
+setInterval(() => {
+  if(!data) return;
+  if(data.phase==="call" || data.phase==="call2"){
+    const ms = data.deadline-Date.now(), rem = Math.max(0,Math.ceil(ms/1000));
+    const t = document.getElementById("tm2"); if(t) t.textContent = rem;
+    if(rem<=5 && rem>0 && rem!==lastTick){ lastTick = rem; beep(700,.08); }
+    if(ms<=0 && (myId===idOf(data.phase==="call"?"wazir":"musheer") || ms<-3000)) advance(data.phase, true);
+    return;
+  }
+  if(data.phase!=="guess") return;
+  const ms = data.deadline-Date.now(), rem = Math.max(0,Math.ceil(ms/1000));
+  const t = document.getElementById("tm"); if(t){ t.textContent = rem; t.classList.toggle("hot", rem<=10); }
+  const b = document.getElementById("tb"); if(b) b.style.width = Math.max(0,Math.min(100,ms/300))+"%";
+  if(rem<=10 && rem>0 && rem!==lastTick){ lastTick = rem; beep(rem<=3?900:600,.1); if(navigator.vibrate) navigator.vibrate(60); }
+  if(ms<=0 && (myId===idOf(gRoleOf(data)) || ms<-3000)) resolve(null);
+}, 250);
+
+/* ---- screens ---- */
+function board(){
+  const s = [...data.players].sort((a,b) => b.total-a.total);
+  return `<div class="box"><h2>Score</h2>${s.map(p => `<div class="row"><span class="${p.id===myId?"me":""}">${esc(p.name)}</span><b>${p.total}</b></div>`).join("")}</div>`;
+}
+function myCard(){
+  const r = R[data.roles[myId]], k = code+data.round, seen = shown===k;
+  if(!seen) setTimeout(() => { const c = document.getElementById("cd"); if(c) c.classList.add("show"); }, 500);
+  shown = k;
+  return `<div class="card ${seen?"show":""}" id="cd"><div class="in"><div class="face front">?</div><div class="face back"><div class="big">${r.e}</div><div class="nm">${r.n}</div><div class="pt">${r.p}</div></div></div></div>`;
+}
+function callTimer(){
+  return `<p style="text-align:center">⏳ <b id="tm2">${Math.max(0,Math.ceil((data.deadline-Date.now())/1000))}</b> second mein jawab do, warna khud ba khud "G huzoor!" ho jayega.</p>`;
+}
+function hist(){
+  const H = data.history||[]; if(!H.length) return "";
+  return `<div class="box" style="overflow-x:auto"><h2>Har game ka score</h2><table><tr><th>#</th>${data.players.map(p => `<th>${esc(p.name.slice(0,6))}</th>`).join("")}</tr>${H.map(h => `<tr><td>${h.r}</td>${data.players.map(p => `<td>${h.pts[p.id]}</td>`).join("")}</tr>`).join("")}</table></div>`;
+}
+function render(){
+  if(!data.players.some(p => p.id===myId)){ home(); return; }
+  const isHost = data.hostId===myId, ph = data.phase, role = data.roles[myId], n = data.players.length, m5 = data.mode===5;
+  const key = ph+data.round; if(key!==lastKey){ lastKey = key; lastTick = -1;
+    if(ph==="final"){ const me = data.players.find(p => p.id===myId); newRec = me.total>bestScore(); if(newRec){ try{ localStorage.setItem("bw_best", me.total) }catch(e){} } }
+    sfx(ph); }
+  const take = isHost ? "" : `<button class="alt" onclick="takeHost()">Host nahi aa raha? Main host banta hoon</button>`;
+  let h = `<div class="top"><span>Room <b>${code}</b></span><span>${ph==="lobby"||ph==="final"?"":`Game ${data.round}/${data.totalRounds}`}</span></div>`;
+
+  if(ph==="lobby"){
+    h += `<h1>Intezar...</h1>${bestLine()}<div class="box">${data.players.map(p => `<div class="row"><span>${esc(p.name)}</span><span>✔</span></div>`).join("")}<p>${n}/5 players. 4 hon to Play dabao. Play se pehle 5th aa jaye to Musheer bhi khelega.</p></div>
+    <button class="alt" onclick="shareWA()">WhatsApp pe link bhejo</button>
+    ${isHost ? `<button ${n<4?"disabled":""} onclick="startRound()">Play ▶ (${n} players)</button>` : `<p>Host ke Play dabane ka intezar.</p>`+take}`;
+  }
+  else if(ph==="ask"){
+    h += myCard() + (role==="badshah" ? `<button onclick="askWazir()">Bolo: "Badshah ka wazir kon?"</button>` : `<p>Apni parchi kisi ko mat dikhana. Badshah ke bolne ka intezar...</p>`) + board();
+  }
+  else if(ph==="call"){
+    h += myCard() + `<div class="call">"Badshah ka wazir kon?"</div>` + (role==="wazir" ? `<button onclick="jiHuzoor()">G huzoor! G huzoor!</button>` : `<p>Jiske pas Wazir hai wo jawab dega...</p>`) + callTimer() + board();
+  }
+  else if(ph==="call2"){
+    h += myCard() + `<div class="call">${esc(nameOf(idOf("wazir")))}: "Musheer kon?"</div>` + (role==="musheer" ? `<button onclick="jiHuzoor()">G huzoor! G huzoor!</button>` : `<p>Jiske pas Musheer hai wo jawab dega...</p>`) + callTimer() + board();
+  }
+  else if(ph==="guess"){
+    const gid = idOf(gRoleOf(data)), bid = idOf("badshah");
+    const rem = Math.max(0,Math.ceil((data.deadline-Date.now())/1000));
+    h += myCard() + `<div class="call">${esc(nameOf(gid))} ne kaha: "G huzoor!"${data.autoAns?" (waqt khatam, khud ba khud ⏰)":""}</div>
+    <p style="text-align:center">${esc(nameOf(bid))} (Badshah) ka hukam: baqi do mein se chor dhondo!</p>
+    <div class="timer ${rem<=10?"hot":""}" id="tm">${rem}</div><div class="bar"><i id="tb"></i></div>`;
+    if(myId===gid){
+      const t = data.players.filter(p => ["sapahi","chor"].includes(data.roles[p.id]));
+      h += `<div class="grid">${t.map(p => `<button onclick="guess('${p.id}')">${esc(p.name)}</button>`).join("")}</div>`;
+    } else h += `<p style="text-align:center">${esc(nameOf(gid))} soch raha hai... 30 second se pehle jawab dena hai!</p>`;
+    h += board();
+  }
+  else if(ph==="reveal"){
+    const gR = gRoleOf(data);
+    h += `<h1 class="${data.correct?"ok":"bad"}">${data.correct?"Chor pakda gaya! ✅":data.timedOut?"Waqt khatam! ⏰":"Ghalat nikla! ❌"}</h1>
+    ${!data.correct?`<p>${R[gR].n} ke 0 number aur chor ko ${R[gR].p}!</p>`:""}
+    <div class="box">${data.players.map((p,i) => { const r = R[data.roles[p.id]];
+      return `<div class="row rv" style="--i:${i}"><span>${r.e} ${esc(p.name)} (${r.n})</span><b>+${data.roundPoints[p.id]}</b></div>`; }).join("")}</div>`
+      + board() + (isHost ? `<button onclick="nextRound()">${data.round>=data.totalRounds?"Final result dekho":"Agla game"}</button>` : `<p>Host agla game shuru karega.</p>`+take);
+  }
+  else if(ph==="final"){
+    const s = [...data.players].sort((a,b) => b.total-a.total);
+    const medal = i => i<3 ? ["🥇 1st","🥈 2nd","🥉 3rd"][i] : (i===s.length-1 ? "😅 Haar gaya" : (i+1)+"th");
+    h += `<h1>Final Result 🏆</h1>${newRec?`<p class="ok">🎉 Naya personal record!</p>`:""}${bestLine()}<div class="box">${s.map((p,i) => `<div class="row rv" style="--i:${i}"><span>${medal(i)} — ${esc(p.name)}</span><b>${p.total}</b></div>`).join("")}</div>`
+      + hist() + (isHost ? `<button onclick="playAgain()">Dobara khelo</button>` : take);
+  }
+  $.innerHTML = h;
+}
+
+if(code && myName){
+  runTransaction(db, async tx => {
+    const s = await tx.get(ref(code));
+    if(s.exists() && s.data().players.some(p => p.id===myId)) return;
+    throw new Error("x");
+  }).then(listen).catch(home);
+} else home();
+</script>
+</body>
+</html>
