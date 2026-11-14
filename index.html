@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="ur">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Naskh+Arabic:wght@400;700&display=swap" rel="stylesheet">
+<title>Badshah Wazir Sapahi Chor</title>
+<style>
+:root{--felt:#14382b;--felt2:#0e2a20;--slip:#f6f1e4;--ink:#1d1b16;--red:#b3261e;--gold:#e8b94a;--mute:#9fb8ac}
+*{box-sizing:border-box}
+body{margin:0;min-height:100vh;background:var(--felt);color:#fff;font-family:system-ui,-apple-system,"Segoe UI",sans-serif;padding:14px 14px 40px;max-width:520px;margin-inline:auto}
+h1{font-family:Georgia,serif;font-size:26px;margin:6px 0 4px}
+h2{font-family:Georgia,serif;font-size:20px;margin:0 0 8px}
+p{margin:6px 0;line-height:1.45;color:var(--mute)}
+input,select{width:100%;padding:13px;border-radius:10px;border:2px solid #2d5a49;background:var(--felt2);color:#fff;font-size:17px;margin:6px 0}
+button{width:100%;padding:14px;border:0;border-radius:10px;background:var(--gold);color:var(--ink);font-size:17px;font-weight:700;margin:8px 0;cursor:pointer}
+button.alt{background:transparent;color:#fff;border:2px solid #2d5a49;font-weight:500;font-size:15px}
+button:disabled{opacity:.4}
+.box{background:var(--felt2);border-radius:14px;padding:14px;margin:12px 0}
+.top{display:flex;justify-content:space-between;font-size:14px;color:var(--mute)}
+.card{perspective:800px;height:210px;margin:14px 6px}
+.in{position:relative;width:100%;height:100%;transition:transform .8s;transform-style:preserve-3d}
+.show .in{transform:rotateY(180deg)}
+.face{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;border-radius:8px;display:flex;flex-direction:column;align-items:center;justify-content:center;border:2px dashed #b9ae8f;background:var(--slip);color:var(--ink)}
+.front{background:repeating-linear-gradient(45deg,#e9dfc2,#e9dfc2 8px,#f6f1e4 8px,#f6f1e4 16px);font-size:70px;font-family:Georgia,serif;color:#8a7d55}
+.back{transform:rotateY(180deg)}
+.big{font-size:52px}.nm{font-family:Georgia,serif;font-size:30px;font-weight:700}.pt{font-family:Georgia,serif;font-size:34px;color:var(--red);font-weight:700}
+.row{display:flex;justify-content:space-between;padding:9px 0;border-bottom:1px solid #24493b}
+.row:last-child{border:0}
+.rv{animation:pop .5s both;animation-delay:calc(var(--i)*.35s)}
+@keyframes pop{from{opacity:0;transform:scale(.7) translateY(10px)}to{opacity:1;transform:none}}
+.call{font-family:Georgia,serif;font-size:26px;text-align:center;color:var(--gold);padding:12px 0}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.me{color:var(--gold)}.ok{color:#7ee2a8}.bad{color:#ff8b80}
+.timer{width:96px;height:96px;border-radius:50%;border:5px solid var(--gold);margin:10px auto;display:flex;align-items:center;justify-content:center;font:700 44px Georgia,serif}
+.timer.hot{border-color:#ff5a4d;color:#ff8b80;animation:pulse .5s infinite alternate}
+@keyframes pulse{to{transform:scale(1.1)}}
+.bar{height:8px;background:var(--felt2);border-radius:4px;overflow:hidden}
+.bar i{display:block;height:100%;width:100%;background:var(--gold)}
+table{width:100%;border-collapse:collapse;font-size:14px}
+th,td{padding:6px 4px;text-align:center;border-bottom:1px solid #24493b}
+.cf{position:fixed;top:-14px;width:9px;height:14px;z-index:9;animation:fall linear forwards}
+@keyframes fall{to{transform:translateY(105vh) rotate(720deg)}}
+#splash{position:fixed;inset:0;z-index:99;background:radial-gradient(circle at 50% 40%,#1d5a43,#0a1f17);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;transition:opacity .6s}
+#splash.out{opacity:0;pointer-events:none}
+#splash .ic{font-size:34px;letter-spacing:10px;animation:float 1.6s ease-in-out infinite alternate}
+#splash h1{font-size:48px;margin:16px 0 6px;background:linear-gradient(90deg,#b8862b,#ffe9a3,#b8862b);background-size:200% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:rise .9s both,shine 2s linear infinite}
+#splash p{font-size:19px;color:#e9dfc2;animation:fadein 1s .9s both}
+#splash small{position:absolute;bottom:40px;color:var(--mute);animation:fadein 1s 1.5s both}
+@keyframes rise{from{opacity:0;transform:translateY(30px) scale(.8)}to{opacity:1;transform:none}}
+@keyframes shine{to{background-position:200% 0}}
+@keyframes float{to{transform:translateY(-12px)}}
+@keyframes fadein{from{opacity:0}to{opacity:1}}
+.lb{display:flex;gap:6px;justify-content:center;margin:2px 0 8px}
+.lb span{padding:5px 12px;border:2px solid #2d5a49;border-radius:16px;font-size:13px;cursor:pointer;color:var(--mute)}
+.lb span.on{background:var(--gold);color:var(--ink);border-color:var(--gold);font-weight:700}
+.vb{display:grid;grid-template-columns:1.4fr 1fr;gap:8px}
+button.muted{background:#7a2b25;color:#fff}
+body.ur *{font-family:"Noto Naskh Arabic",system-ui,sans-serif !important}
+</style>
+</head>
+<body>
+<div id="splash"><div class="ic">👑🧠📜💂🥷</div><h1>Tiwana Games</h1><p>Your Desi Childhood Games 😉</p><small>skip karne ke liye tap karo</small></div>
+<script>(function(){var s=document.getElementById("splash");function h(){s.classList.add("out");setTimeout(function(){s.remove()},700)}setTimeout(h,3000);s.onclick=h})()</script>
+<div id="app"></div>
+<script type="module">
+import {initializeApp} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+import {getFirestore,doc,collection,onSnapshot,setDoc,getDoc,deleteDoc,updateDoc,arrayUnion,runTransaction,serverTimestamp} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyCPJhqTGW4KajDkFUmvYXpklVKkV4gEOrg",
+  authDomain: "badshah-ka-wazir-kon.firebaseapp.com",
+  projectId: "badshah-ka-wazir-kon",
+  storageBucket: "badshah-ka-wazir-kon.firebasestorage.app",
+  messagingSenderId: "144426600510",
+  appId: "1:144426600510:web:6a9efcbcaeb1a1b7b1a96f"
+};
+
+const db = getFirestore(initializeApp(firebaseConfig));
+const R = {
+  badshah:{p:1000,e:"👑"},
+  wazir:{p:600,e:"🧠"},
+  musheer:{p:400,e:"📜"},
+  sapahi:{p:200,e:"💂"},
+  chor:{p:0,e:"🥷"}
+};
+
+/* ---- languages: [Roman Urdu, English, Urdu] ---- */
+const T = {
+  title:["👑 Badshah Wazir Sapahi Chor","👑 King Minister Soldier Thief","👑 بادشاہ وزیر سپاہی چور"],
+  tag:["4 ya 5 dost, parchian aur maza. Apna naam likho aur khelo.","4 or 5 friends, paper slips and fun. Enter your name and play.","۴ یا ۵ دوست، پرچیاں اور مزہ۔ اپنا نام لکھیں اور کھیلیں۔"],
+  best:["🏅 Aapka ab tak ka highest score: {0}","🏅 Your highest score so far: {0}","🏅 اب تک آپ کا سب سے زیادہ سکور: {0}"],
+  nobest:["🏅 Abhi koi score nahi. Pehli game khelo aur record banao!","🏅 No score yet. Play your first game and set a record!","🏅 ابھی کوئی سکور نہیں۔ پہلی گیم کھیلیں اور ریکارڈ بنائیں!"],
+  ph_name:["Aapka naam","Your name","آپ کا نام"],
+  room:["Room","Room","روم"],
+  join:["Room mein shamil ho jao","Join this room","روم میں شامل ہوں"],
+  newroom_alt:["Ya naya room banao","Or create a new room","یا نیا روم بنائیں"],
+  games:["{0} games","{0} games","{0} گیمز"],
+  create:["Naya room banao","Create new room","نیا روم بنائیں"],
+  a_name:["Pehle apna naam likho","Please enter your name first","پہلے اپنا نام لکھیں"],
+  a_fail:["Room nahi ban saka. Firebase config aur Firestore check karo.","Could not create the room. Check Firebase config and Firestore.","روم نہیں بن سکا۔ Firebase اور Firestore چیک کریں۔"],
+  a_nf:["Ye room nahi mila","Room not found","یہ روم نہیں ملا"],
+  a_started:["Game shuru ho chuki hai","The game has already started","گیم شروع ہو چکی ہے"],
+  a_full:["Room full hai (5 players)","Room is full (5 players)","روم بھر چکا ہے (۵ کھلاڑی)"],
+  a_closed:["Host ne room khatam kar diya.","The host closed the room.","ہوسٹ نے روم ختم کر دیا۔"],
+  c_final:["Abhi final result dikha dein?","Show the final result now?","ابھی فائنل نتیجہ دکھا دیں؟"],
+  c_end:["Room khatam kar dein? Sab players ka game band ho jayega.","End the room? The game will stop for everyone.","روم ختم کر دیں؟ سب کی گیم بند ہو جائے گی۔"],
+  c_leave:["Room chhod dein?","Leave the room?","روم چھوڑ دیں؟"],
+  wait:["Intezar...","Waiting...","انتظار..."],
+  lobby_n:["{0}/5 players. 4 hon to Play dabao. Play se pehle 5th aa jaye to Musheer bhi khelega.","{0}/5 players. With 4 you can press Play. If a 5th joins before Play, the Advisor plays too.","{0}/5 کھلاڑی۔ ۴ ہوں تو Play دبائیں۔ Play سے پہلے ۵واں آ جائے تو مشیر بھی کھیلے گا۔"],
+  howmany:["Kitni games khelni hain?","How many games?","کتنی گیمز کھیلنی ہیں؟"],
+  gamesn:["Games: {0}","Games: {0}","گیمز: {0}"],
+  share:["WhatsApp pe link bhejo","Send link on WhatsApp","واٹس ایپ پر لنک بھیجیں"],
+  play:["Play ▶ ({0} players)","Play ▶ ({0} players)","Play ▶ ({0} کھلاڑی)"],
+  waithost:["Host ke Play dabane ka intezar.","Waiting for the host to press Play.","ہوسٹ کے Play دبانے کا انتظار۔"],
+  takehost:["Host nahi aa raha? Main host banta hoon","Host not responding? I will be the host","ہوسٹ نہیں آ رہا؟ میں ہوسٹ بنتا ہوں"],
+  wa:["Badshah Wazir Sapahi Chor khelo! Room {0}: {1}","Play King Minister Soldier Thief! Room {0}: {1}","بادشاہ وزیر سپاہی چور کھیلیں! روم {0}: {1}"],
+  say:[`Bolo: "Badshah ka wazir kon?"`,`Say: "Who is the King's Minister?"`,`بولیں: "بادشاہ کا وزیر کون؟"`],
+  hide:["Apni parchi kisi ko mat dikhana. Badshah ke bolne ka intezar...","Do not show your slip to anyone. Waiting for the King to speak...","اپنی پرچی کسی کو نہ دکھائیں۔ بادشاہ کے بولنے کا انتظار..."],
+  ct_ask:["⏳ {0} second mein sawal poochho, warna khud ba khud pooch liya jayega.","⏳ Ask within {0} seconds, or it will be asked automatically.","⏳ {0} سیکنڈ میں سوال پوچھیں، ورنہ خود بخود پوچھ لیا جائے گا۔"],
+  ct_ans:[`⏳ {0} second mein jawab do, warna khud ba khud "G huzoor!" ho jayega.`,`⏳ Answer within {0} seconds, or "At your service!" is said automatically.`,`⏳ {0} سیکنڈ میں جواب دیں، ورنہ خود بخود "جی حضور!" ہو جائے گا۔`],
+  q:[`"Badshah ka wazir kon?"`,`"Who is the King's Minister?"`,`"بادشاہ کا وزیر کون؟"`],
+  yes:["G huzoor! G huzoor!","At your service! At your service!","جی حضور! جی حضور!"],
+  wwait:["Jiske pas Wazir hai wo jawab dega...","Whoever holds the Minister will answer...","جس کے پاس وزیر ہے وہ جواب دے گا..."],
+  q2:[`{0}: "Musheer kon?"`,`{0}: "Who is the Advisor?"`,`{0}: "مشیر کون؟"`],
+  mwait:["Jiske pas Musheer hai wo jawab dega...","Whoever holds the Advisor will answer...","جس کے پاس مشیر ہے وہ جواب دے گا..."],
+  said:[`{0} ne kaha: "G huzoor!"`,`{0} said: "At your service!"`,`{0} نے کہا: "جی حضور!"`],
+  auto:[" (waqt khatam, khud ba khud ⏰)"," (time up, automatic ⏰)"," (وقت ختم، خود بخود ⏰)"],
+  order:["{0} (Badshah) ka hukam: baqi do mein se chor dhondo!","{0} (King) orders: find the thief among the other two!","{0} (بادشاہ) کا حکم: باقی دو میں سے چور ڈھونڈو!"],
+  thinks:["{0} soch raha hai... 30 second se pehle jawab dena hai!","{0} is thinking... must answer within 30 seconds!","{0} سوچ رہا ہے... ۳۰ سیکنڈ میں جواب دینا ہے!"],
+  caught:["Chor pakda gaya! ✅","Thief caught! ✅","چور پکڑا گیا! ✅"],
+  timeup:["Waqt khatam! ⏰","Time is up! ⏰","وقت ختم! ⏰"],
+  wrong:["Ghalat nikla! ❌","Wrong guess! ❌","غلط نکلا! ❌"],
+  swap:["{0} ke 0 number aur chor ko {1}!","{0} gets 0 and the Thief gets {1}!","{0} کے 0 نمبر اور چور کو {1}!"],
+  fin:["Final result dekho","See final result","فائنل نتیجہ دیکھیں"],
+  next:["Agla game","Next game","اگلی گیم"],
+  waitnext:["Host agla game shuru karega.","The host will start the next game.","ہوسٹ اگلی گیم شروع کرے گا۔"],
+  score:["Score","Score","سکور"],
+  gn:["Game {0}/{1}","Game {0}/{1}","گیم {0}/{1}"],
+  final:["Final Result 🏆","Final Result 🏆","فائنل نتیجہ 🏆"],
+  rec:["🎉 Naya personal record!","🎉 New personal record!","🎉 نیا ذاتی ریکارڈ!"],
+  m1:["🥇 1st","🥇 1st","🥇 پہلا"],
+  m2:["🥈 2nd","🥈 2nd","🥈 دوسرا"],
+  m3:["🥉 3rd","🥉 3rd","🥉 تیسرا"],
+  last:["😅 Haar gaya","😅 Lost","😅 ہار گیا"],
+  again:["Dobara khelo","Play again","دوبارہ کھیلیں"],
+  hist:["Har game ka score","Score of every game","ہر گیم کا سکور"],
+  endnow:["⏹ Abhi final result dikhao","⏹ Show final result now","⏹ ابھی فائنل نتیجہ دکھائیں"],
+  endroom:["🗑 Room khatam karo","🗑 End the room","🗑 روم ختم کریں"],
+  leave:["🚪 Room chhodo","🚪 Leave room","🚪 روم چھوڑیں"],
+  r_badshah:["Badshah","King","بادشاہ"],
+  r_wazir:["Wazir","Minister","وزیر"],
+  r_musheer:["Musheer","Advisor","مشیر"],
+  r_sapahi:["Sapahi","Soldier","سپاہی"],
+  r_chor:["Chor","Thief","چور"],
+  v_on:["🎙 Voice chat chalu karo","🎙 Start voice chat","🎙 وائس چیٹ شروع کریں"],
+  v_live:["🎤 Mic on (tap = mute)","🎤 Mic on (tap to mute)","🎤 مائیک آن (میوٹ کرنے کے لیے ٹیپ)"],
+  v_muted:["🔇 Mute hai (tap = on)","🔇 Muted (tap to unmute)","🔇 میوٹ ہے (آن کرنے کے لیے ٹیپ)"],
+  v_off:["Voice band karo","Leave voice","وائس بند کریں"],
+  v_denied:["Mic ki ijazat nahi mili. Browser settings mein mic allow karo.","Microphone permission denied. Allow the mic in browser settings.","مائیک کی اجازت نہیں ملی۔ براؤزر سیٹنگز میں مائیک allow کریں۔"],
+  v_in:["Voice mein:","In voice:","وائس میں:"]
+};
+let lang = ""; try{ lang = localStorage.getItem("bw_lang") || ""; }catch(e){}
+const LI = {ro:0,en:1,ur:2};
+const t = (k,...a) => String((T[k]||[k,k,k])[LI[lang]??0]).replace(/\{(\d)\}/g,(m,i)=>a[i]);
+const rn = r => t("r_"+r);
+function applyLang(){ document.documentElement.lang = lang==="ur"?"ur":"en"; document.documentElement.dir = lang==="ur"?"rtl":"ltr"; document.body.className = lang; }
+applyLang();
+const LN = {en:"English",ur:"اردو",ro:"Roman Urdu"};
+const langBar = () => `<div class="lb">${["en","ur","ro"].map(l => `<span class="${l===lang?"on":""}" onclick="setLang('${l}')">${LN[l]}</span>`).join("")}</div>`;
+window.setLang = l => {
+  const first = !lang; lang = l; try{ localStorage.setItem("bw_lang",l); }catch(e){}
+  applyLang();
+  if(first) boot(); else if(data && data.players.some(p => p.id===myId)) render(); else home();
+};
+function langPick(){
+  $.innerHTML = `<h1>🌐 Language · زبان · Zabaan</h1><p>Choose your language · اپنی زبان منتخب کریں · Apni zabaan chunein</p>
+  <div class="box"><button onclick="setLang('en')">English</button><button onclick="setLang('ur')">اردو</button><button onclick="setLang('ro')">Roman Urdu</button></div>`;
+}
+
+const $ = document.getElementById("app");
+const esc = s => String(s).replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+let myId = localStorage.getItem("bw_id");
+if(!myId){ myId = Math.random().toString(36).slice(2,10); localStorage.setItem("bw_id", myId); }
+let myName = localStorage.getItem("bw_name") || "";
+let code = (new URLSearchParams(location.search).get("room") || "").toUpperCase();
+let newRec=false, unsub=null, data=null, shown="", lastKey="", lastTick=-1, resolving=false;
+const ref = c => doc(db, "rooms", c);
+let off = 0; const now = () => Date.now()+off;
+async function syncClock(){ try{ const pr = doc(db,"pings",myId); await setDoc(pr,{t:serverTimestamp()}); const x = await getDoc(pr); const tt = x.data().t; if(tt) off = tt.toMillis()-Date.now(); }catch(e){} }
+syncClock();
+const bestScore = () => { try{ return +localStorage.getItem("bw_best")||0 }catch(e){ return 0 } };
+const bestLine = () => bestScore() ? `<p>${t("best",`<b class="me">${bestScore()}</b>`)}</p>` : `<p>${t("nobest")}</p>`;
+
+/* ---- sound, vibration, confetti ---- */
+let ac;
+function beep(f=600,d=.15,ty="sine",v=.15){try{ac=ac||new (window.AudioContext||window.webkitAudioContext)();const o=ac.createOscillator(),g=ac.createGain();o.type=ty;o.frequency.value=f;g.gain.value=v;o.connect(g);g.connect(ac.destination);o.start();g.gain.exponentialRampToValueAtTime(.001,ac.currentTime+d);o.stop(ac.currentTime+d)}catch(e){}}
+const tune = a => a.forEach((f,i)=>setTimeout(()=>beep(f,.25,"triangle"),i*180));
+function confetti(){for(let i=0;i<70;i++){const e=document.createElement("i");e.className="cf";e.style.cssText=`left:${Math.random()*100}vw;background:hsl(${Math.random()*360},90%,60%);animation-delay:${Math.random()*1.5}s;animation-duration:${2+Math.random()*2}s`;document.body.appendChild(e);setTimeout(()=>e.remove(),5000)}}
+function sfx(ph){
+  if(ph==="ask") tune([440,660]);
+  else if(ph==="guess") beep(500,.2);
+  else if(ph==="reveal") tune(data.correct?[523,659,784]:[392,330,262]);
+  else if(ph==="final"){ tune([523,659,784,1047]); confetti(); }
+}
+
+/* ---- home / join ---- */
+function home(){
+  $.innerHTML = `${langBar()}<h1>${t("title")}</h1>
+  <p>${t("tag")}</p>${bestLine()}
+  <div class="box">
+    <input id="nm" placeholder="${t("ph_name")}" value="${esc(myName)}" maxlength="14">
+    ${code ? `<p>${t("room")}: <b>${esc(code)}</b></p><button onclick="joinRoom()">${t("join")}</button><button class="alt" onclick="location.href=location.pathname">${t("newroom_alt")}</button>`
+    : `<select id="rounds">${[3,5,10,12,15].map(x => `<option value="${x}" ${x===10?"selected":""}>${t("games",x)}</option>`).join("")}</select>
+       <button onclick="createRoom()">${t("create")}</button>`}
+  </div>`;
+}
+function readName(){
+  const v = document.getElementById("nm").value.trim();
+  if(!v){ alert(t("a_name")); return null; }
+  myName = v; localStorage.setItem("bw_name", v); return v;
+}
+window.createRoom = async () => {
+  const name = readName(); if(!name) return;
+  const total = +document.getElementById("rounds").value;
+  code = Array.from({length:4}, () => "ABCDEFGHJKLMNPQRSTUVWXYZ"[Math.floor(Math.random()*24)]).join("");
+  try{
+    await setDoc(ref(code), {players:[{id:myId,name,total:0}], phase:"lobby", round:0, totalRounds:total, hostId:myId, mode:4, roles:{}, guessId:null, roundPoints:null, correct:null, timedOut:false, deadline:0, history:[]});
+  }catch(e){ alert(t("a_fail")+"\n"+e.message); return; }
+  history.replaceState(null,"","?room="+code); listen();
+};
+window.joinRoom = async () => {
+  const name = readName(); if(!name) return;
+  try{
+    await runTransaction(db, async tx => {
+      const s = await tx.get(ref(code));
+      if(!s.exists()) throw new Error(t("a_nf"));
+      const d = s.data();
+      if(d.players.some(p => p.id===myId)) return;
+      if(d.phase!=="lobby") throw new Error(t("a_started"));
+      if(d.players.length>=5) throw new Error(t("a_full"));
+      tx.update(ref(code), {players:[...d.players, {id:myId,name,total:0}]});
+    });
+  }catch(e){ alert(e.message); return; }
+  listen();
+};
+function listen(){
+  if(unsub) unsub();
+  unsub = onSnapshot(ref(code), s => { if(s.exists()){ data = s.data(); render(); } else if(data){ alert(t("a_closed")); location.href = location.pathname; } });
+}
+
+/* ---- game actions ---- */
+const upd = o => updateDoc(ref(code), o);
+const nameOf = id => (data.players.find(p => p.id===id)||{name:"?"}).name;
+const idOf = (role,d=data) => Object.keys(d.roles).find(k => d.roles[k]===role);
+const gRoleOf = d => d.mode===5 ? "musheer" : "wazir";
+
+window.startRound = () => {
+  const n = data.players.length;
+  const roles = (n===5 ? ["badshah","wazir","musheer","sapahi","chor"] : ["badshah","wazir","sapahi","chor"]).sort(() => Math.random()-.5);
+  const map = {}; data.players.forEach((p,i) => map[p.id] = roles[i]);
+  upd({mode:n===5?5:4, roles:map, phase:"ask", deadline:now()+15000, autoAns:false, round:data.round+1, guessId:null, roundPoints:null, correct:null, timedOut:false});
+};
+window.askWazir = () => advance("ask", false);
+let advancing = false;
+async function advance(from, auto){
+  if(advancing) return; advancing = true;
+  try{
+    await runTransaction(db, async tx => {
+      const s = await tx.get(ref(code)); const d = s.data();
+      if(d.phase!==from) return;
+      if(from==="ask") tx.update(ref(code), {phase:"call", deadline:now()+15000, autoAns:false});
+      else if(from==="call" && d.mode===5) tx.update(ref(code), {phase:"call2", deadline:now()+15000, autoAns:!!auto});
+      else tx.update(ref(code), {phase:"guess", deadline:now()+30000, autoAns:!!auto});
+    });
+  }catch(e){}
+  advancing = false;
+}
+window.jiHuzoor = () => advance(data.phase, false);
+window.guess = id => resolve(id);
+async function resolve(gid){
+  if(resolving) return; resolving = true;
+  try{
+    await runTransaction(db, async tx => {
+      const s = await tx.get(ref(code)); const d = s.data();
+      if(d.phase!=="guess") return;
+      const gR = gRoleOf(d), correct = !!gid && gid===idOf("chor",d), pts = {};
+      d.players.forEach(p => {
+        let r = d.roles[p.id];
+        if(!correct){ if(r===gR) r="chor"; else if(r==="chor") r=gR; }
+        pts[p.id] = R[r].p;
+      });
+      tx.update(ref(code), {players:d.players.map(p => ({...p,total:p.total+pts[p.id]})), guessId:gid||null, roundPoints:pts, correct, timedOut:!gid, history:[...(d.history||[]),{r:d.round,pts}], phase:"reveal"});
+    });
+  }catch(e){}
+  resolving = false;
+}
+window.nextRound = () => data.round>=data.totalRounds ? upd({phase:"final"}) : startRound();
+window.playAgain = () => upd({players:data.players.map(p => ({...p,total:0})), phase:"lobby", round:0, roles:{}, history:[]});
+window.takeHost = () => upd({hostId:myId});
+window.setRounds = v => upd({totalRounds:+v});
+window.endNow = () => { if(confirm(t("c_final"))) upd({phase:"final"}); };
+window.endRoom = async () => {
+  if(!confirm(t("c_end"))) return;
+  await voiceOff();
+  try{ await deleteDoc(ref(code)); }catch(e){}
+  location.href = location.pathname;
+};
+window.leaveRoom = async () => {
+  if(!confirm(t("c_leave"))) return;
+  await voiceOff();
+  try{
+    if(data && data.phase==="lobby"){
+      const rest = data.players.filter(p => p.id!==myId);
+      if(!rest.length) await deleteDoc(ref(code));
+      else await upd({players:rest, hostId:data.hostId===myId?rest[0].id:data.hostId});
+    }
+  }catch(e){}
+  location.href = location.pathname;
+};
+window.shareWA = () => {
+  const link = location.origin + location.pathname + "?room=" + code;
+  window.open("https://wa.me/?text=" + encodeURIComponent(t("wa",code,link)));
+};
+
+/* ---- voice chat (WebRTC, Firestore signaling) ---- */
+const ICE = {iceServers:[{urls:"stun:stun.l.google.com:19302"},{urls:"stun:stun1.l.google.com:19302"}]};
+let vs = null, vpeers = [];
+const sigRef = (a,b) => doc(db,"rooms",code,"sig",a<b?a+"_"+b:b+"_"+a);
+const vRef = id => doc(db,"rooms",code,"voice",id);
+function flush(st,arr){
+  if(!st.pc || !st.pc.remoteDescription) return;
+  while(st.i<arr.length){ st.pc.addIceCandidate(JSON.parse(arr[st.i++])).catch(()=>{}); }
+}
+function connect(pid){
+  const lo = myId<pid, st = {pc:null,i:0}, sr = sigRef(myId,pid);
+  vs.pcs[pid] = st;
+  const mk = () => {
+    const pc = new RTCPeerConnection(ICE); st.pc = pc;
+    vs.stream.getTracks().forEach(tr => pc.addTrack(tr,vs.stream));
+    pc.onicecandidate = e => { if(e.candidate) setDoc(sr,{[lo?"ca":"cb"]:arrayUnion(JSON.stringify(e.candidate))},{merge:true}).catch(()=>{}); };
+    pc.ontrack = e => {
+      let a = document.getElementById("au_"+pid);
+      if(!a){ a = document.createElement("audio"); a.id = "au_"+pid; a.autoplay = true; a.playsInline = true; document.body.appendChild(a); }
+      a.srcObject = e.streams[0]; if(a.play) a.play().catch(()=>{});
+    };
+    return pc;
+  };
+  if(lo){
+    const pc = mk();
+    pc.createOffer().then(o => pc.setLocalDescription(o)).then(() => setDoc(sr,{offer:{type:pc.localDescription.type,sdp:pc.localDescription.sdp},answer:null},{merge:true})).catch(()=>{});
+  }
+  vs.subs[pid] = onSnapshot(sr, async s => {
+    const d = s.data(); if(!d) return;
+    try{
+      if(lo){
+        if(d.answer && st.pc && !st.pc.currentRemoteDescription) await st.pc.setRemoteDescription(d.answer);
+        flush(st, d.cb||[]);
+      } else if(d.offer && !st.pc){
+        const pc = mk(); await pc.setRemoteDescription(d.offer);
+        const an = await pc.createAnswer(); await pc.setLocalDescription(an);
+        await updateDoc(sr,{answer:{type:pc.localDescription.type,sdp:pc.localDescription.sdp}});
+        flush(st, d.ca||[]);
+      } else if(!lo && st.pc) flush(st, d.ca||[]);
+    }catch(e){}
+  });
+}
+function drop(pid){
+  const st = vs.pcs[pid]; if(!st) return;
+  try{ if(st.pc) st.pc.close(); }catch(e){}
+  if(vs.subs[pid]) vs.subs[pid]();
+  delete vs.pcs[pid]; delete vs.subs[pid];
+  const a = document.getElementById("au_"+pid); if(a) a.remove();
+  if(myId<pid) deleteDoc(sigRef(myId,pid)).catch(()=>{});
+}
+window.voiceOn = async () => {
+  let stream;
+  try{ stream = await navigator.mediaDevices.getUserMedia({audio:{echoCancellation:true,noiseSuppression:true}}); }
+  catch(e){ alert(t("v_denied")); return; }
+  vs = {stream,pcs:{},subs:{},muted:false};
+  for(const p of data.players) if(p.id!==myId){ try{ await deleteDoc(sigRef(myId,p.id)); }catch(e){} }
+  await setDoc(vRef(myId),{name:myName,t:Date.now()});
+  vs.unV = onSnapshot(collection(db,"rooms",code,"voice"), snap => {
+    if(!vs) return;
+    const ids = snap.docs.map(d => d.id);
+    vpeers = snap.docs.map(d => ({id:d.id,name:d.data().name}));
+    ids.filter(i => i!==myId && !vs.pcs[i]).forEach(connect);
+    Object.keys(vs.pcs).filter(i => !ids.includes(i)).forEach(drop);
+    if(data) render();
+  });
+  render();
+};
+window.voiceOff = async () => {
+  if(!vs) return;
+  const v = vs; vs = null; vpeers = [];
+  if(v.unV) v.unV();
+  Object.keys(v.pcs).forEach(pid => {
+    try{ if(v.pcs[pid].pc) v.pcs[pid].pc.close(); }catch(e){}
+    if(v.subs[pid]) v.subs[pid]();
+    const a = document.getElementById("au_"+pid); if(a) a.remove();
+  });
+  v.stream.getTracks().forEach(x => x.stop());
+  try{ await deleteDoc(vRef(myId)); }catch(e){}
+  if(data) render();
+};
+window.toggleMic = () => {
+  if(!vs) return;
+  vs.muted = !vs.muted;
+  vs.stream.getAudioTracks().forEach(x => x.enabled = !vs.muted);
+  render();
+};
+window.addEventListener("pagehide", () => { if(vs) deleteDoc(vRef(myId)).catch(()=>{}); });
+function voiceBar(){
+  if(!vs) return `<button class="alt" onclick="voiceOn()">${t("v_on")}</button>`;
+  return `<div class="vb"><button class="${vs.muted?"muted":""}" onclick="toggleMic()">${vs.muted?t("v_muted"):t("v_live")}</button><button class="alt" onclick="voiceOff()">${t("v_off")}</button></div>
+  <p>🎧 ${t("v_in")} ${vpeers.map(p => esc(p.name)).join(", ")}</p>`;
+}
+
+/* ---- timer ---- */
+setInterval(() => {
+  if(!data) return;
+  if(["ask","call","call2"].includes(data.phase)){
+    const ms = data.deadline-now(), rem = Math.max(0,Math.ceil(ms/1000));
+    const tm = document.getElementById("tm2"); if(tm) tm.textContent = rem;
+    if(rem<=5 && rem>0 && rem!==lastTick){ lastTick = rem; beep(700,.08); }
+    if(ms<=0 && (myId===idOf({ask:"badshah",call:"wazir",call2:"musheer"}[data.phase]) || ms<-3000)) advance(data.phase, true);
+    return;
+  }
+  if(data.phase!=="guess") return;
+  const ms = data.deadline-now(), rem = Math.max(0,Math.ceil(ms/1000));
+  const tm = document.getElementById("tm"); if(tm){ tm.textContent = rem; tm.classList.toggle("hot", rem<=10); }
+  const b = document.getElementById("tb"); if(b) b.style.width = Math.max(0,Math.min(100,ms/300))+"%";
+  if(rem<=10 && rem>0 && rem!==lastTick){ lastTick = rem; beep(rem<=3?900:600,.1); if(navigator.vibrate) navigator.vibrate(60); }
+  if(ms<=0 && (myId===idOf(gRoleOf(data)) || ms<-3000)) resolve(null);
+}, 250);
+
+/* ---- screens ---- */
+function board(){
+  const s = [...data.players].sort((a,b) => b.total-a.total);
+  return `<div class="box"><h2>${t("score")}</h2>${s.map(p => `<div class="row"><span class="${p.id===myId?"me":""}">${esc(p.name)}</span><b>${p.total}</b></div>`).join("")}</div>`;
+}
+function myCard(){
+  const ro = data.roles[myId], r = R[ro], k = code+data.round, seen = shown===k;
+  if(!seen) setTimeout(() => { const c = document.getElementById("cd"); if(c) c.classList.add("show"); }, 500);
+  shown = k;
+  return `<div class="card ${seen?"show":""}" id="cd"><div class="in"><div class="face front">?</div><div class="face back"><div class="big">${r.e}</div><div class="nm">${rn(ro)}</div><div class="pt">${r.p}</div></div></div></div>`;
+}
+function callTimer(ph){
+  const n = `<b id="tm2">${Math.max(0,Math.ceil((data.deadline-now())/1000))}</b>`;
+  return `<p style="text-align:center">${t(ph==="ask"?"ct_ask":"ct_ans", n)}</p>`;
+}
+function hist(){
+  const H = data.history||[]; if(!H.length) return "";
+  return `<div class="box" style="overflow-x:auto"><h2>${t("hist")}</h2><table><tr><th>#</th>${data.players.map(p => `<th>${esc(p.name.slice(0,6))}</th>`).join("")}</tr>${H.map(h => `<tr><td>${h.r}</td>${data.players.map(p => `<td>${h.pts[p.id]}</td>`).join("")}</tr>`).join("")}</table></div>`;
+}
+function render(){
+  if(!data.players.some(p => p.id===myId)){ home(); return; }
+  const isHost = data.hostId===myId, ph = data.phase, role = data.roles[myId], n = data.players.length;
+  const key = ph+data.round; if(key!==lastKey){ lastKey = key; lastTick = -1;
+    if(ph==="final"){ const me = data.players.find(p => p.id===myId); newRec = me.total>bestScore(); if(newRec){ try{ localStorage.setItem("bw_best", me.total) }catch(e){} } }
+    sfx(ph); }
+  const take = isHost ? "" : `<button class="alt" onclick="takeHost()">${t("takehost")}</button>`;
+  const ctl = () => `<div style="margin-top:22px;border-top:1px solid #24493b;padding-top:6px">${isHost&&ph!=="lobby"&&ph!=="final"?`<button class="alt" onclick="endNow()">${t("endnow")}</button>`:""}${isHost?`<button class="alt" onclick="endRoom()">${t("endroom")}</button>`:""}<button class="alt" onclick="leaveRoom()">${t("leave")}</button>${langBar()}</div>`;
+  let h = `<div class="top"><span>${t("room")} <b>${code}</b></span><span>${ph==="lobby"||ph==="final"?"":t("gn",data.round,data.totalRounds)}</span></div>${voiceBar()}`;
+
+  if(ph==="lobby"){
+    h += `<h1>${t("wait")}</h1>${bestLine()}<div class="box">${data.players.map(p => `<div class="row"><span>${esc(p.name)}</span><span>✔</span></div>`).join("")}<p>${t("lobby_n",n)}</p></div>${isHost?`<div class="box"><p>${t("howmany")}</p><select onchange="setRounds(this.value)">${[3,5,10,12,15].map(x => `<option value="${x}" ${x===data.totalRounds?"selected":""}>${t("games",x)}</option>`).join("")}</select></div>`:`<p>${t("gamesn",data.totalRounds)}</p>`}
+    <button class="alt" onclick="shareWA()">${t("share")}</button>
+    ${isHost ? `<button ${n<4?"disabled":""} onclick="startRound()">${t("play",n)}</button>` : `<p>${t("waithost")}</p>`+take}`;
+  }
+  else if(ph==="ask"){
+    h += myCard() + (role==="badshah" ? `<button onclick="askWazir()">${t("say")}</button>` : `<p>${t("hide")}</p>`) + callTimer(ph) + board();
+  }
+  else if(ph==="call"){
+    h += myCard() + `<div class="call">${t("q")}</div>` + (role==="wazir" ? `<button onclick="jiHuzoor()">${t("yes")}</button>` : `<p>${t("wwait")}</p>`) + callTimer(ph) + board();
+  }
+  else if(ph==="call2"){
+    h += myCard() + `<div class="call">${t("q2",esc(nameOf(idOf("wazir"))))}</div>` + (role==="musheer" ? `<button onclick="jiHuzoor()">${t("yes")}</button>` : `<p>${t("mwait")}</p>`) + callTimer(ph) + board();
+  }
+  else if(ph==="guess"){
+    const gid = idOf(gRoleOf(data)), bid = idOf("badshah");
+    const rem = Math.max(0,Math.ceil((data.deadline-now())/1000));
+    h += myCard() + `<div class="call">${t("said",esc(nameOf(gid)))}${data.autoAns?t("auto"):""}</div>
+    <p style="text-align:center">${t("order",esc(nameOf(bid)))}</p>
+    <div class="timer ${rem<=10?"hot":""}" id="tm">${rem}</div><div class="bar"><i id="tb"></i></div>`;
+    if(myId===gid){
+      const tg = data.players.filter(p => ["sapahi","chor"].includes(data.roles[p.id]));
+      h += `<div class="grid">${tg.map(p => `<button onclick="guess('${p.id}')">${esc(p.name)}</button>`).join("")}</div>`;
+    } else h += `<p style="text-align:center">${t("thinks",esc(nameOf(gid)))}</p>`;
+    h += board();
+  }
+  else if(ph==="reveal"){
+    const gR = gRoleOf(data);
+    h += `<h1 class="${data.correct?"ok":"bad"}">${data.correct?t("caught"):data.timedOut?t("timeup"):t("wrong")}</h1>
+    ${!data.correct?`<p>${t("swap",rn(gR),R[gR].p)}</p>`:""}
+    <div class="box">${data.players.map((p,i) => { const ro = data.roles[p.id];
+      return `<div class="row rv" style="--i:${i}"><span>${R[ro].e} ${esc(p.name)} (${rn(ro)})</span><b>+${data.roundPoints[p.id]}</b></div>`; }).join("")}</div>`
+      + board() + (isHost ? `<button onclick="nextRound()">${data.round>=data.totalRounds?t("fin"):t("next")}</button>` : `<p>${t("waitnext")}</p>`+take);
+  }
+  else if(ph==="final"){
+    const s = [...data.players].sort((a,b) => b.total-a.total);
+    const medal = i => i<3 ? t("m"+(i+1)) : (i===s.length-1 ? t("last") : "#"+(i+1));
+    h += `<h1>${t("final")}</h1>${newRec?`<p class="ok">${t("rec")}</p>`:""}${bestLine()}<div class="box">${s.map((p,i) => `<div class="row rv" style="--i:${i}"><span>${medal(i)} — ${esc(p.name)}</span><b>${p.total}</b></div>`).join("")}</div>`
+      + hist() + (isHost ? `<button onclick="playAgain()">${t("again")}</button>` : take);
+  }
+  $.innerHTML = h + ctl();
+}
+
+function boot(){
+  if(code && myName){
+    runTransaction(db, async tx => {
+      const s = await tx.get(ref(code));
+      if(s.exists() && s.data().players.some(p => p.id===myId)) return;
+      throw new Error("x");
+    }).then(listen).catch(home);
+  } else home();
+}
+if(!lang) langPick(); else boot();
+</script>
+</body>
+</html>
